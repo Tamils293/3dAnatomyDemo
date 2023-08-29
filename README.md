@@ -16,16 +16,16 @@ Copy code
 cd 3dAnatomyDemo
 Install the project dependencies using npm:
 
-bash
-Copy code
 npm install
+
+
 Usage
 Start the development server:
 
-bash
-Copy code
 npm run dev
+
 The app will be accessible at http://localhost:3000.
+
 
 Navigate to the app and interact with the 3D anatomy model.
 
@@ -38,7 +38,7 @@ b. Interact with the 3D model as needed to identify the desired positions.
 c. In the console, copy the position data in the format:
 
 json
-Copy code
+Copy code form the console give copy object of a single vector,
 {
     "x": 0.123,
     "y": -0.456,
@@ -53,5 +53,4 @@ f. The marked position will now be displayed on the 3D model.
 Contributing
 Contributions are welcome! If you encounter any issues or have ideas for improvements, feel free to open an issue or submit a pull request.
 
-License
-This project is licensed under the MIT License.
+
