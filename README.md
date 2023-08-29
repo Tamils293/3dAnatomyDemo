@@ -13,11 +13,9 @@ Follow these steps to get the app up and running on your local machine:
 2.Change to the project directory:
 
    cd 3dAnatomyDemo
-
 3. Install the project dependencies using npm:
 
   npm install
-
 
 4. Usage
 Start the development server:
