@@ -8,19 +8,19 @@ Follow these steps to get the app up and running on your local machine:
 
 1. Clone the repository using Git:
 
-   git clone https://github.com/Tamils293/3dAnatomyDemo.git
+git clone https://github.com/Tamils293/3dAnatomyDemo.git
    
 2.Change to the project directory:
 
-   cd 3dAnatomyDemo
+cd 3dAnatomyDemo
 3. Install the project dependencies using npm:
 
-  npm install
+npm install
 
 4. Usage
 Start the development server:
 
-   npm run dev
+npm run dev
 
  The app will be accessible at http://localhost:3000.
 
