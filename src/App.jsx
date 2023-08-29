@@ -7,7 +7,9 @@ import SceneInit from './lib/SceneInit';
 
 function App() {
   const [markedPoints, setMarkedPoints] = useState([]);
-
+  const [Test, setTest] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [uploadedCoordinates, setUploadedCoordinates] = useState('');
   useEffect(() => {
     const test = new SceneInit('myThreeJsCanvas');
     test.initialize();
@@ -48,18 +50,80 @@ function App() {
         // const intersectionPoint = intersects[0].point.clone();
         const newMarkedPoints = [...markedPoints, intersectionPoint];
         setMarkedPoints(prevMarkedPoints => [...prevMarkedPoints, intersectionPoint]);
-        console.log(markedPoints)
+
+        console.log(newMarkedPoints[0])
 
 
       }
     };
+    const clearMarkedPoints = () => {
+      // Clear markers from the scene
+      const markersToRemove = test.scene.children.filter(child => child.type === 'Mesh');
+      markersToRemove.forEach(marker => test.scene.remove(marker));
 
+      // Clear the markedPoints state
+      setMarkedPoints([]);
+    };
+
+
+
+    document.querySelector("#btns").addEventListener('click', clearMarkedPoints)
+    // document.querySelector("#upload").addEventListener('click', clearMarkedPoints)
     canvas.addEventListener('click', handleMouseClick);
-
+    setTest(test)
     return () => {
       canvas.removeEventListener('click', handleMouseClick);
     };
   }, []);
+
+  const handleApply = () => {
+    const parsedCoordinates = parseCoordinates(uploadedCoordinates);
+    // parsedCoordinates.forEach((coordinate) => {
+    //   // Create a marker at each parsed coordinate using your existing logic
+    // });
+    try {
+      const parsedCoordinate = JSON.parse(uploadedCoordinates);
+
+      // Create a marker at the parsed position
+      const marker = new THREE.Mesh(
+        new THREE.SphereGeometry(0.05, 5, 5),
+        new THREE.MeshBasicMaterial({ color: 0x800080 })
+      );
+
+      marker.position.set(parsedCoordinate.x, parsedCoordinate.y, parsedCoordinate.z);
+      Test.scene.add(marker);
+
+      // Update the markedPoints state
+      setMarkedPoints(prevMarkedPoints => [...prevMarkedPoints, parsedCoordinate]);
+
+      // Close the modal
+      closeModal();
+    } catch (error) {
+      console.error('Error parsing coordinates:', error);
+    }
+  };
+
+  const openModal = () => {
+
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const handleTextareaChange = (event) => {
+    setUploadedCoordinates(event.target.value);
+  };
+
+
+  const parseCoordinates = (coordinates) => {
+    debugger
+    // Implement your coordinate parsing logic here
+    // Return an array of parsed coordinates
+    // For example: [{ x: 0, y: 0, z: 0 }, ...]
+    return [];
+  };
+
 
   return (
     <div style={{ position: 'relative' }}>
@@ -83,6 +147,51 @@ function App() {
           ))}
         </ul>
       </div>
+      <div
+        style={{
+          position: 'absolute',
+          top: 20,
+          right: 220,
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          padding: '10px',
+          border: '1px solid #ddd',
+          borderRadius: '5px',
+        }}
+      >
+        <button id="btns" >clear</button>
+      </div>
+      <div
+        style={{
+          position: 'absolute',
+          top: 20,
+          right: 280,
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          padding: '10px',
+          border: '1px solid #ddd',
+          borderRadius: '5px',
+        }}
+      >
+        <button onClick={openModal} id="upload" >upload</button>
+      </div>
+      {isModalOpen && (
+        <div style={{
+          position: 'absolute',
+          top: 20,
+          right: 280,
+          backgroundColor: 'rgba(255, 255, 255, 0.8)',
+          padding: '10px',
+          border: '1px solid #ddd',
+          borderRadius: '5px',
+        }} className="modal">
+          <textarea
+            value={uploadedCoordinates}
+            onChange={handleTextareaChange}
+            placeholder="Enter coordinates..."
+          />
+          <button onClick={handleApply}>Apply</button>
+          <button id="apply" onClick={closeModal}>Close</button>
+        </div>
+      )}
     </div>
   );
 }
