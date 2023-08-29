@@ -7,24 +7,24 @@ Welcome to the 3D Anatomy Demo repository! This Vite app showcases a 3D anatomy 
 Follow these steps to get the app up and running on your local machine:
 
 1. Clone the repository using Git:
-   ```bash
+
    git clone https://github.com/Tamils293/3dAnatomyDemo.git
-Change to the project directory:
+   
+2.Change to the project directory:
 
-bash
-Copy code
-cd 3dAnatomyDemo
-Install the project dependencies using npm:
+   cd 3dAnatomyDemo
 
-npm install
+3. Install the project dependencies using npm:
+
+  npm install
 
 
-Usage
+4. Usage
 Start the development server:
 
-npm run dev
+   npm run dev
 
-The app will be accessible at http://localhost:3000.
+ The app will be accessible at http://localhost:3000.
 
 
 Navigate to the app and interact with the 3D anatomy model.
